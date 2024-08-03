@@ -46,15 +46,15 @@ Lucknow Metro Route Calculator using Dijkstra's Algorithm. This Java program cal
 
 ## Usage
 
-1. **Running the Program:**
+1. ### **Running the Program:**
    - Compile the Java files.
    - Run the `LucknowDijkstra` class which prompts for station numbers and displays shortest paths.
 
-2. **Input Format:**
+2. ### **Input Format:**
    - Enter the station numbers as prompted to calculate shortest paths.
    - Example: Enter `1` for Munshipulia and `10` for Sachvalaya.
 
-3. **Contributing:**
+3. ### **Contributing:**
    - Contributions are welcome! Fork the repository, make changes, and submit pull requests.
 
 Feel free to reach out if you have any questions or suggestions! Happy navigating the Lucknow Metro routes!
