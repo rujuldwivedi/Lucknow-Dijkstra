@@ -2,6 +2,16 @@
 
 Lucknow Metro Route Calculator using Dijkstra's Algorithm. This Java program calculates the shortest path between metro stations in Lucknow using Dijkstra's algorithm. It includes predefined station data with coordinates and distances, allowing users to find the shortest route between any two stations.
 
+## Lucknow Metro Route Map
+
+**Option 1:**
+
+![Lucknow Metro Route Map](1200px-Lucknow_Metro_Route_Map_(Tentative).svg.png)
+
+**Option 2:**
+
+![Lucknow Metro Route Map](604-6049952_lucknow-metro-route-map-hd-png-download.png)
+
 ## Features
 
 - **Shortest Path Calculation:** Uses Dijkstra's algorithm to compute the shortest path from a selected source station to all other stations.
@@ -48,10 +58,3 @@ Lucknow Metro Route Calculator using Dijkstra's Algorithm. This Java program cal
    - Contributions are welcome! Fork the repository, make changes, and submit pull requests.
 
 Feel free to reach out if you have any questions or suggestions! Happy navigating the Lucknow Metro routes!
-
-### Lucknow Metro Route Map
-
-[1200px-Lucknow_Metro_Route_Map_(Tentative).svg.png]
-[604-6049952_lucknow-metro-route-map-hd-png-download.png]
-
-Choose the image that best suits your needs and replace the placeholder with the correct path.
