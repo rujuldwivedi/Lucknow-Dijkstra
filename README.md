@@ -22,7 +22,7 @@ The project is split into three main components:
 
 3. **Comparison Module (`LucknowDijkstra.java`)**:
    - Combines the fare and time data from both taxi and metro travel to compare the "payoff" for each mode.
-   - The payoff is calculated as the product of fare and time, and this result is "hashed" into a variable `$σ$`, which is used to compare the two modes of transport.
+   - The payoff is calculated as the product of fare and time, and this result is "hashed" into a variable $'σ'$, which is used to compare the two modes of transport.
    - Recommends the optimal mode of transport based on the lower $σ$ value.
 
 ## Lucknow Metro Route Map
