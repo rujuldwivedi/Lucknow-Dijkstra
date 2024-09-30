@@ -4,7 +4,7 @@ This project aims to demonstrate how travelling by Lucknow Metro is economically
 
 ### Inspiration
 
-Lucknow Metro has been running at a significant loss, reporting a deficit of ₹303 crore as of 2022. To help address this issue and encourage more metro usage, this project illustrates the clear benefits of choosing metro travel over taxis by calculating the "payoff" (represented by a variable $sigma$) for various journeys. By showcasing the lower fare and time multipliers of metro journeys, we hope to contribute to efforts aimed at making the metro system more profitable, efficient, and widely adopted.
+Lucknow Metro has been running at a significant loss, reporting a deficit of ₹1363 crore as of March 2023. To help address this issue and encourage more metro usage, this project illustrates the clear benefits of choosing metro travel over taxis by calculating the "payoff" (represented by a variable $σ$) for various journeys. By showcasing the lower fares and time multipliers of metro journeys, we hope to contribute to efforts aimed at making the metro system more profitable, efficient, and widely adopted.
 
 ## Project Structure
 
@@ -17,13 +17,13 @@ The project is split into three main components:
 
 2. **Metro Travel (`MetroGraph.java`)**:
    - Implements a similar graph for the metro system but assumes a linear connection between stations.
-   - Uses predefined travel times and a fare structure based on the number of stations traveled.
+   - Uses predefined travel times and a fare structure based on the number of stations travelled.
    - A breadth-first search (BFS) algorithm is used to calculate the travel time and fare for metro journeys.
 
 3. **Comparison Module (`LucknowDijkstra.java`)**:
    - Combines the fare and time data from both taxi and metro travel to compare the "payoff" for each mode.
-   - The payoff is calculated as the product of fare and time, and this result is "hashed" into a variable `$$sigma$$`, which is used to compare the two modes of transport.
-   - Recommends the optimal mode of transport based on the lower sigma value.
+   - The payoff is calculated as the product of fare and time, and this result is "hashed" into a variable `$σ$`, which is used to compare the two modes of transport.
+   - Recommends the optimal mode of transport based on the lower $σ$ value.
 
 ## Lucknow Metro Route Map
 
