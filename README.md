@@ -4,7 +4,7 @@ This project aims to demonstrate how travelling by Lucknow Metro is economically
 
 ### Inspiration
 
-Lucknow Metro has been running at a significant loss, reporting a deficit of ₹303 crore as of 2022. To help address this issue and encourage more metro usage, this project illustrates the clear benefits of choosing metro travel over taxis by calculating the "payoff" (represented by a variable $$sigma$$) for various journeys. By showcasing the lower fare and time multipliers of metro journeys, we hope to contribute to efforts aimed at making the metro system more profitable, efficient, and widely adopted.
+Lucknow Metro has been running at a significant loss, reporting a deficit of ₹303 crore as of 2022. To help address this issue and encourage more metro usage, this project illustrates the clear benefits of choosing metro travel over taxis by calculating the "payoff" (represented by a variable $sigma$) for various journeys. By showcasing the lower fare and time multipliers of metro journeys, we hope to contribute to efforts aimed at making the metro system more profitable, efficient, and widely adopted.
 
 ## Project Structure
 
@@ -60,20 +60,6 @@ The project is split into three main components:
 | 19             | Amausi                   | 26.771246°N 80.878623°E |
 | 20             | CCS Airport              | 26.766150°N 80.883561°E |
 
-## Usage
-
-1. **Running the Program:**
-   - Compile the Java files.
-   - Run the `LucknowDijkstra` class which prompts for station numbers and displays shortest paths.
-
-2. **Input Format:**
-   - The program will prompt you to enter the source and destination station numbers (1-20).
-   - It will calculate the fare and time for both metro and taxi options and display the sigma comparison value for each.
-   - Example: Enter 1 for Munshipulia and 10 for Sachvalaya.
-
-3. **Output:**
-   - The program outputs a recommendation based on the travel option with the lowest sigma score.
-  
 ## Why Metro Travel Wins
 The project compares the cost and time of using taxis versus the metro and consistently shows that metro journeys result in a lower payoff, or sigma, due to:
 
@@ -82,6 +68,20 @@ The project compares the cost and time of using taxis versus the metro and consi
    - **Better Payoff**: By minimizing both fare and time, metro travel is the optimal choice in most cases.
 
 By illustrating these points with clear data and providing a simple but effective decision-making tool, this project aims to encourage more people to opt for metro travel. This would not only save individuals time and money but also help make the metro system more profitable in the long term.
+
+## Usage
+
+1. **Running the Program:**
+   - Compile the Java files.
+   - Run the `LucknowDijkstra` class which prompts for station numbers and displays shortest paths.
+
+2. **Input Format:**
+   - The program will prompt you to enter the source and destination station numbers (1-20).
+   - It will calculate the fare and time for both metro and taxi options and display the Sigma comparison value for each.
+   - Example: Enter 1 for Munshipulia and 10 for Sachvalaya.
+
+3. **Output:**
+   - The program outputs a recommendation based on the travel option with the lowest sigma score.
 
 ## Future Enhancements
 The project can be expanded in the following ways:
