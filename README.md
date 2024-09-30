@@ -1,12 +1,29 @@
 # Lucknow Dijkstra
 
-Lucknow Metro Route Calculator using Dijkstra's Algorithm. This Java program calculates the shortest path between metro stations in Lucknow using Dijkstra's algorithm. It includes predefined station data with coordinates and distances, allowing users to find the shortest route between any two stations.
+This project aims to demonstrate how travelling by Lucknow Metro is economically and temporally advantageous compared to taking a taxi. The project provides a comparative analysis between the two modes of transport, using station-to-station fare and time data to recommend the optimal travel option for any journey across the metro network.
 
-## Features
+### Inspiration
 
-- **Shortest Path Calculation:** Uses Dijkstra's algorithm to compute the shortest path from a selected source station to all other stations.
-- **Interactive Input:** Allows users to input any two station numbers and calculates the shortest distance between them.
-- **Station Information:** Provides station names, numbers, and coordinates for reference.
+Lucknow Metro has been running at a significant loss, reporting a deficit of ₹303 crore as of 2022. To help address this issue and encourage more metro usage, this project illustrates the clear benefits of choosing metro travel over taxis by calculating the "payoff" (represented by a variable $$sigma$$) for various journeys. By showcasing the lower fare and time multipliers of metro journeys, we hope to contribute to efforts aimed at making the metro system more profitable, efficient, and widely adopted.
+
+## Project Structure
+
+The project is split into three main components:
+
+1. **Taxi Travel (`TaxiGraph.java`)**:
+   - Implements a graph structure where each station is a node, and each edge between nodes represents a taxi journey.
+   - Takes station coordinates and calculates the straight-line road distance, estimated fare, and travel time between stations.
+   - The Dijkstra algorithm is used to find the minimum fare and time for a journey.
+
+2. **Metro Travel (`MetroGraph.java`)**:
+   - Implements a similar graph for the metro system but assumes a linear connection between stations.
+   - Uses predefined travel times and a fare structure based on the number of stations traveled.
+   - A breadth-first search (BFS) algorithm is used to calculate the travel time and fare for metro journeys.
+
+3. **Comparison Module (`LucknowDijkstra.java`)**:
+   - Combines the fare and time data from both taxi and metro travel to compare the "payoff" for each mode.
+   - The payoff is calculated as the product of fare and time, and this result is "hashed" into a variable `$$sigma$$`, which is used to compare the two modes of transport.
+   - Recommends the optimal mode of transport based on the lower sigma value.
 
 ## Lucknow Metro Route Map
 
@@ -40,9 +57,8 @@ Lucknow Metro Route Calculator using Dijkstra's Algorithm. This Java program cal
 | 16             | Alambagh                 | 26.813960°N 80.902462°E |
 | 17             | Singar Nagar             | 26.803044°N 80.896311°E |
 | 18             | Krishna Nagar            | 26.794386°N 80.891721°E |
-| 19             | Transport Nagar          | 26.777836°N 80.882574°E |
-| 20             | Amausi                   | 26.771246°N 80.878623°E |
-| 21             | CCS Airport              | 26.766150°N 80.883561°E |
+| 19             | Amausi                   | 26.771246°N 80.878623°E |
+| 20             | CCS Airport              | 26.766150°N 80.883561°E |
 
 ## Usage
 
@@ -51,10 +67,30 @@ Lucknow Metro Route Calculator using Dijkstra's Algorithm. This Java program cal
    - Run the `LucknowDijkstra` class which prompts for station numbers and displays shortest paths.
 
 2. **Input Format:**
-   - Enter the station numbers as prompted to calculate shortest paths.
-   - Example: Enter `1` for Munshipulia and `10` for Sachvalaya.
+   - The program will prompt you to enter the source and destination station numbers (1-20).
+   - It will calculate the fare and time for both metro and taxi options and display the sigma comparison value for each.
+   - Example: Enter 1 for Munshipulia and 10 for Sachvalaya.
 
-3. **Contributing:**
-   - Contributions are welcome! Fork the repository, make changes, and submit pull requests.
+3. **Output:**
+   - The program outputs a recommendation based on the travel option with the lowest sigma score.
+  
+## Why Metro Travel Wins
+The project compares the cost and time of using taxis versus the metro and consistently shows that metro journeys result in a lower payoff, or sigma, due to:
+
+   - **Lower Fares**: Metro fares are far cheaper than taxis, especially for longer journeys.
+   - **Faster Travel Times**: The dedicated metro tracks avoid road traffic, leading to quicker commutes.
+   - **Better Payoff**: By minimizing both fare and time, metro travel is the optimal choice in most cases.
+
+By illustrating these points with clear data and providing a simple but effective decision-making tool, this project aims to encourage more people to opt for metro travel. This would not only save individuals time and money but also help make the metro system more profitable in the long term.
+
+## Future Enhancements
+The project can be expanded in the following ways:
+
+   - Incorporating real-world data for taxi routes, accounting for traffic and varying fare structures.
+   - Extending the metro graph to cover additional stations as the network expands.
+   - Adding user inputs for dynamic conditions, such as peak hour delays or congestion, to simulate real-world scenarios more accurately.
+
+## Contributions
+Contributions are welcome! Fork the repository, make changes, and submit pull requests.
 
 Feel free to reach out if you have any questions or suggestions! Happy navigating the Lucknow Metro routes!
