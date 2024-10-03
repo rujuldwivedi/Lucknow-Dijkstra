@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class LucknowDijkstra
+public class LucknowMTC
 {
 
     private static final int SIGMA_DIVISOR = 1000;
