@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 class TaxiGraph
 {
     static class Station
@@ -17,15 +14,9 @@ class TaxiGraph
         }
     }
 
-    static class Comparison
-    {
-        static double fare1;
-        static double time1;
-    }
-
     static class Graph
     {
-        int V;
+        int V; // Number of stations
         Station[] stations;
 
         Graph(int V, Station[] stations)
@@ -51,31 +42,44 @@ class TaxiGraph
             return R * c; // Distance in km
         }
 
-        double getTaxiInfo(int src, int dest)
+        // Method to calculate taxi fare using Dijkstra with dynamic fare rates for crowded stations
+        public double dijkstra(int src, int dest)
         {
             Station sourceStation = stations[src];
             Station destStation = stations[dest];
             double distance = calculateDistance(sourceStation, destStation);
 
-            double fare = distance * 10; // Fare in rupees (10 rupees/km)
-            double time = (distance / 40) * 60; // Time in minutes (distance/speed) converted to minutes
+            // Dynamic fare based on crowded stations
+            double baseFarePerKm = 10;
+            double fare = baseFarePerKm;
 
-            System.out.printf("Taxi fare from %d to %d: Rs. %.2f, Time: %.2f minutes%n", sourceStation.id, destStation.id, fare, time);
+            // Crowded station fare surcharges
+            if (src == 2 || dest == 2) fare += 2; // Bhootnath
+            if (src == 4 || dest == 4) fare += 3; // Badshah Nagar
+            if (src == 8 || dest == 8) fare += 5; // Hazratganj
+            if (src == 12 || dest == 12) fare += 5; // Charbagh
+            if (src == 18 || dest == 18) fare += 3; // Amausi
+            if (src == 19 || dest == 19) fare += 10; // CCS Airport
 
-            return fare; // Return fare for storing
+            return fare * distance; // Total fare in rupees
         }
 
-        double getTravelTime(int src, int dest)
+        // Method to calculate travel time (in minutes) based on distance and average speed
+        public double getTravelTime(int src, int dest)
         {
             Station sourceStation = stations[src];
             Station destStation = stations[dest];
             double distance = calculateDistance(sourceStation, destStation);
 
-            double time = (distance / 40) * 60; // Time in minutes
-            return time; // Return time for storing
+            // Assume an average speed of 40 km/h for taxis
+            double speed = 40.0;
+            double timeInHours = distance / speed;
+
+            return timeInHours * 60; // Convert time to minutes
         }
     }
 
+    // Initialize the taxi graph with stations
     public static Graph initializeTaxiGraph()
     {
         Station[] stations = new Station[21];
@@ -102,42 +106,5 @@ class TaxiGraph
         stations[19] = new Station(20, 26.771246, 80.878623); // CCS Airport
 
         return new Graph(21, stations); // Return the initialized taxi graph
-    }
-
-    public static void main(String[] args)
-    {
-        Scanner scanner = new Scanner(System.in);
-        
-        // Initialize taxi graph
-        Graph taxiGraph = initializeTaxiGraph();
-
-        // Input: Get station numbers from the user
-        System.out.print("Enter the starting station (1-20): ");
-        int startStation = scanner.nextInt() - 1; // Adjusting for 0-based index
-        System.out.print("Enter the destination station (1-20): ");
-        int endStation = scanner.nextInt() - 1; // Adjusting for 0-based index
-
-        // Validate input
-        if (startStation < 0 || startStation >= 20 || endStation < 0 || endStation >= 20)
-        {
-            System.out.println("Invalid station number. Please enter a number between 1 and 20.");
-            scanner.close();
-            return;
-        }
-
-        // Get taxi fare and time
-        double fare = taxiGraph.getTaxiInfo(startStation, endStation);
-        double time = taxiGraph.getTravelTime(startStation, endStation);
-
-        // Store fare and time for comparison
-        if (fare != -1 && time != -1)
-        {
-            Comparison.fare1 = fare;
-            Comparison.time1 = time;
-
-            System.out.printf("Taxi fare: Rs. %.2f, Time: %.2f min%n", fare, time);
-        }
-
-        scanner.close();
     }
 }
