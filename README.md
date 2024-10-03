@@ -12,7 +12,7 @@ The project is split into three main components:
 
 1. **Taxi Travel (`TaxiGraph.java`)**:
    - Implements a graph structure where each station is a node, and each edge between nodes represents a taxi journey.
-   - Takes station coordinates and calculates the straight-line road distance, estimated fare, and travel time between stations.
+   - Takes station coordinates and calculates the straight-line road distance (using the Haversine Formula), estimated fare (₹ 10 per kilometre), and travel time between stations (assuming an average speed of 40 km/hr).
    - The Dijkstra algorithm is used to find the minimum fare and time for a journey.
 
 2. **Metro Travel (`MetroGraph.java`)**:
