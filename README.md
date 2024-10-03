@@ -1,4 +1,4 @@
-# Lucknow Dijkstra
+# Lucknow Metro Taxi Comparator
 
 This project aims to demonstrate how travelling by Lucknow Metro is generally economically and temporally advantageous compared to taking a taxi. The project provides a comparative analysis between the two modes of transport, using station-to-station fare and time data to recommend the optimal travel option for any journey across the metro network.
 
@@ -12,8 +12,8 @@ The project is split into three main components:
 
 1. **Taxi Travel (`TaxiGraph.java`)**:
    - Implements a graph structure where each station is a node, and each edge between nodes represents a taxi journey.
-   - Takes station coordinates and calculates the straight-line road distance (using the Haversine Formula), estimated fare (₹ 10 per kilometre), and travel time between stations (assuming an average speed of 40 km/hr).
-   - The Dijkstra algorithm is used to find the minimum fare and time for a journey.
+   - Takes station coordinates and calculates the straight-line road distance (using the Haversine Formula).
+   - Finally an estimated fare (₹ 10 per kilometre), and travel time between stations (assuming an average speed of 40 km/hr).
 
 2. **Metro Travel (`MetroGraph.java`)**:
    - Implements a similar graph for the metro system but assumes a linear connection between stations.
