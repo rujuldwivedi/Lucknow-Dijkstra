@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 import java.util.Scanner;
 
 class TaxiGraph
@@ -27,113 +26,53 @@ class TaxiGraph
     static class Graph
     {
         int V;
-        ArrayList<ArrayList<Edge>> adj;
         Station[] stations;
 
         Graph(int V, Station[] stations)
         {
             this.V = V;
             this.stations = stations;
-
-            adj = new ArrayList<>(V);
-
-            for (int i = 0; i < V; i++)
-            adj.add(new ArrayList<>());
         }
 
-        static class Edge
+        // Method to calculate distance between two points using Haversine formula
+        private double calculateDistance(Station a, Station b)
         {
-            int target;
-            double fare;
-            double time; // in minutes
+            final int R = 6371; // Radius of the Earth in km
 
-            Edge(int target, double fare, double time)
-            {
-                this.target = target;
-                this.fare = fare;
-                this.time = time;
-            }
-        }
+            double latDistance = Math.toRadians(b.lat - a.lat);
+            double lonDistance = Math.toRadians(b.lon - a.lon);
 
-        void addEdge(int u, int v, double fare, double time)
-        {
-            adj.get(u).add(new Edge(v, fare, time));
-            adj.get(v).add(new Edge(u, fare, time)); // assuming undirected graph
-        }
+            double aHav = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                    + Math.cos(Math.toRadians(a.lat)) * Math.cos(Math.toRadians(b.lat))
+                    * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
 
-        double[] dijkstra(int src, int dest)
-        {
-            double[] minFare = new double[V];
-            double[] minTime = new double[V];
-            boolean[] visited = new boolean[V];
+            double c = 2 * Math.atan2(Math.sqrt(aHav), Math.sqrt(1 - aHav));
 
-            PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) ->
-            {
-                // Prioritize by fare, then by time if fares are equal
-                if (a[1] == b[1]) return Double.compare(minTime[a[0]], minTime[b[0]]);
-                return Double.compare(minFare[a[0]], minFare[b[0]]);
-            });
-
-            for (int i = 0; i < V; i++)
-            {
-                minFare[i] = Double.MAX_VALUE; // Initialize with infinity
-                minTime[i] = Double.MAX_VALUE; // Initialize with infinity
-            }
-
-            minFare[src] = 0;
-            minTime[src] = 0;
-            pq.add(new int[]{src, 0}); // {station index, fare}
-
-            while (!pq.isEmpty())
-            {
-                int[] current = pq.poll();
-                int u = current[0];
-
-                if (visited[u])
-                continue; // Skip if already visited
-
-                visited[u] = true;
-
-                for (Edge edge : adj.get(u))
-                {
-                    int v = edge.target;
-                    double newFare = minFare[u] + edge.fare;
-                    double newTime = minTime[u] + edge.time;
-
-                    // Update fare if the new fare is lower
-                    if (newFare < minFare[v])
-                    {
-                        minFare[v] = newFare;
-                        minTime[v] = newTime;
-                        pq.add(new int[]{v, (int) newFare});
-                    }
-                }
-            }
-
-            return new double[]{minFare[dest], minTime[dest]}; // Return fare and time
+            return R * c; // Distance in km
         }
 
         double getTaxiInfo(int src, int dest)
         {
-            double[] result = dijkstra(src, dest);
+            Station sourceStation = stations[src];
+            Station destStation = stations[dest];
+            double distance = calculateDistance(sourceStation, destStation);
 
-            if (result[0] == Double.MAX_VALUE)
-            {
-                System.out.println("No path found from " + stations[src].id + " to " + stations[dest].id);
-                return -1; // Return -1 if no path found
-            }
+            double fare = distance * 10; // Fare in rupees (10 rupees/km)
+            double time = (distance / 40) * 60; // Time in minutes (distance/speed) converted to minutes
 
-            System.out.printf("Taxi fare from %d to %d: Rs. %.2f%n", stations[src].id, stations[dest].id, result[0]);
-            return result[0]; // Return fare for storing
+            System.out.printf("Taxi fare from %d to %d: Rs. %.2f, Time: %.2f minutes%n", sourceStation.id, destStation.id, fare, time);
+
+            return fare; // Return fare for storing
         }
 
         double getTravelTime(int src, int dest)
         {
-            double[] result = dijkstra(src, dest);
-            if (result[1] == Double.MAX_VALUE)
-            return -1; // Return -1 if no path found
+            Station sourceStation = stations[src];
+            Station destStation = stations[dest];
+            double distance = calculateDistance(sourceStation, destStation);
 
-            return result[1]; // Return time for storing
+            double time = (distance / 40) * 60; // Time in minutes
+            return time; // Return time for storing
         }
     }
 
@@ -161,31 +100,8 @@ class TaxiGraph
         stations[17] = new Station(18, 26.794386, 80.891721); // Krishna Nagar
         stations[18] = new Station(19, 26.777836, 80.882574); // Amausi
         stations[19] = new Station(20, 26.771246, 80.878623); // CCS Airport
-    
-        Graph taxiGraph = new Graph(21, stations);
-    
-        // Adding edges with fare and time (example values, modify as needed)
-        taxiGraph.addEdge(0, 1, 10.0, 3.0); // Example fare and time from Munshipulia to Indira Nagar
-        taxiGraph.addEdge(1, 2, 10.0, 5.0); // Example fare and time from Indira Nagar to Bhootnath Market
-        taxiGraph.addEdge(2, 3, 5.0, 4.0); // Example fare and time from Bhootnath Market to Lekhraj Market
-        taxiGraph.addEdge(3, 4, 5.0, 4.0); // Example fare and time from Lekhraj Market to Badshah Nagar
-        taxiGraph.addEdge(4, 5, 10.0, 5.0); // Example fare and time from Badshah Nagar to IT College
-        taxiGraph.addEdge(5, 6, 15.0, 3.0); // Example fare and time from IT College to Lucknow University
-        taxiGraph.addEdge(6, 7, 10.0, 4.0); // Example fare and time from Lucknow University to KD Singh Babu Stadium
-        taxiGraph.addEdge(7, 8, 15.0, 4.0); // Example fare and time from KD Singh Babu Stadium to Hazratganj
-        taxiGraph.addEdge(8, 9, 10.0, 4.0); // Example fare and time from Hazratganj to Sachivalaya
-        taxiGraph.addEdge(9, 10, 10.0, 4.0); // Example fare and time from Sachivalaya to Husainganj
-        taxiGraph.addEdge(10, 11, 15.0, 7.0); // Example fare and time from Husainganj to Charbagh
-        taxiGraph.addEdge(11, 12, 10.0, 3.0); // Example fare and time from Charbagh to Durgapuri
-        taxiGraph.addEdge(12, 13, 15.0, 6.0); // Example fare and time from Durgapuri to Mawaiya
-        taxiGraph.addEdge(13, 14, 20.0, 6.0); // Example fare and time from Mawaiya to Alambagh Bus Station
-        taxiGraph.addEdge(14, 15, 10.0, 5.0); // Example fare and time from Alambagh Bus Station to Alambagh
-        taxiGraph.addEdge(15, 16, 10.0, 3.0); // Example fare and time from Alambagh to Singar Nagar
-        taxiGraph.addEdge(16, 17, 10.0, 3.0); // Example fare and time from Singar Nagar to Krishna Nagar
-        taxiGraph.addEdge(17, 18, 30.0, 9.0); // Example fare and time from Krishna Nagar to Amausi
-        taxiGraph.addEdge(18, 19, 15.0, 2.0); // Example fare and time from Amausi to CCS Airport
-    
-        return taxiGraph; // Return the initialized taxi graph
+
+        return new Graph(21, stations); // Return the initialized taxi graph
     }
 
     public static void main(String[] args)
